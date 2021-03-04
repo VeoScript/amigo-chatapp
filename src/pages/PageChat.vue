@@ -1,13 +1,15 @@
 <template>
   <q-page class="flex column justify-end">
-    <q-banner class="bg-grey-4 text-center">
-      User is offline.
+    <q-banner
+      v-if="!otherUserDetails.online"
+      class="bg-grey-4 text-center">
+      {{ otherUserDetails.name }} is offline.
     </q-banner>
     <div class="q-pa-md column col">
       <q-chat-message
         v-for="message in messages"
         :key="message.text"
-        :name="message.from"
+        :name="message.from === 'me' ? userDetails.name : otherUserDetails.name"
         :text="[message.text]"
         :sent="message.from === 'me' ? true : false"
       />
@@ -44,14 +46,16 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import mixinOtherUserDetails from 'src/mixins/mixin-other-user-details.js'
 export default {
+  mixins: [mixinOtherUserDetails],
   data() {
     return {
       newMessage: ''
     }
   },
   computed: {
-    ...mapState('store', ['messages'])
+    ...mapState('store', ['messages', 'userDetails']),
   },
   methods: {
     ...mapActions('store', ['firebaseGetMessages', 'firebaseStopGettingMessages']),
