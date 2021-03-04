@@ -1,5 +1,5 @@
 <template>
-  <q-form>
+  <q-form @submit="submitForm">
     <q-input
       v-if="tab === 'register'"
       v-model="formData.name"
@@ -18,6 +18,13 @@
       outlined
       type="password"
       label="Password" />
+    <div class="row">
+      <q-space />
+      <q-btn
+      type="submit"
+      color="primary"
+      :label="tab" />
+    </div>
   </q-form>
 </template>
 
@@ -30,6 +37,16 @@ export default {
         name: '',
         email: '',
         password: ''
+      }
+    }
+  },
+  methods: {
+    submitForm() {
+      if (this.tab === 'login') {
+        console.log('Login the user')
+      }
+      else {
+        console.log('Register the user')
       }
     }
   }
