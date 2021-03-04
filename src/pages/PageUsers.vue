@@ -1,20 +1,30 @@
 <template>
-  <q-page class="flex">
-    <q-list bordered>
-      <q-item v-for="user in users" :key="user.id" class="q-my-sm" clickable v-ripple>
+  <q-page class="flex q-pa-md">
+    <q-list
+      class="full-width"
+      separator>
+      <q-item
+        v-for="user in users"
+        :key="user.id"
+        to="/chat"
+        clickable
+        v-ripple>
+
         <q-item-section avatar>
           <q-avatar color="primary" text-color="white">
-            {{ user.letter }}
+            {{ user.name.charAt(0) }}
           </q-avatar>
         </q-item-section>
 
         <q-item-section>
           <q-item-label>{{ user.name }}</q-item-label>
-          <q-item-label caption lines="1">{{ user.email }}</q-item-label>
         </q-item-section>
 
         <q-item-section side>
-          <q-icon name="chat_bubble" color="green" />
+          <q-badge
+            :color="user.online ? 'light-green-5' : 'grey-4'">
+            {{ user.online ? 'Online' : 'Offline' }}
+          </q-badge>
         </q-item-section>
       </q-item>
     </q-list>
@@ -25,26 +35,21 @@
 export default {
   data () {
     return {
-      users: [ {
+      users: [
+        {
           id: 1,
-          name: 'Ruddy Jedrzej',
-          email: 'rjedrzej0@discuz.net',
-          letter: 'R'
-        }, {
+          name: 'Jerome',
+          online: true
+        },
+        {
           id: 2,
-          name: 'Mallorie Alessandrini',
-          email: 'malessandrini1@marketwatch.com',
-          letter: 'M'
-        }, {
+          name: 'Chelyn',
+          online: false
+        },
+        {
           id: 3,
-          name: 'Elisabetta Wicklen',
-          email: 'ewicklen2@microsoft.com',
-          letter: 'E'
-        }, {
-          id: 4,
-          name: 'Seka Fawdrey',
-          email: 'sfawdrey3@wired.com',
-          letter: 'S'
+          name: 'Bentot',
+          online: true
         }
       ]
     }
