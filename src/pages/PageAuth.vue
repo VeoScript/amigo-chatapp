@@ -18,11 +18,11 @@
 
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="login">
-          <login-register />
+          <login-register :tab="tab" />
         </q-tab-panel>
 
         <q-tab-panel name="register">
-          <login-register />
+          <login-register :tab="tab" />
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-
 export default {
   data () {
     return {
