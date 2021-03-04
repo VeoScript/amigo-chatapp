@@ -12,6 +12,9 @@ const mutations = {
   },
   addUser(state, payload) {
     Vue.set(state.users, payload.userId, payload.userDetails)
+  },
+  updateUser(state, payload) {
+    Object.assign(state.users[payload.userId], payload.userDetails)
   }
 }
 
@@ -88,6 +91,14 @@ const actions = {
       let userDetails = snapshot.val()
       let userId = snapshot.key
       commit('addUser', {
+        userId,
+        userDetails
+      })
+    }),
+    firebaseDb.ref('users').on('child_changed', snapshot => {
+      let userDetails = snapshot.val()
+      let userId = snapshot.key
+      commit('updateUser', {
         userId,
         userDetails
       })
