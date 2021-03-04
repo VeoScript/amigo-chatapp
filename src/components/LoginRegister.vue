@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import  { mapActions } from 'vuex'
+
 export default {
   props: ['tab'],
   data() {
@@ -41,12 +43,13 @@ export default {
     }
   },
   methods: {
+    ...mapActions('store', ['registerUser']),
     submitForm() {
       if (this.tab === 'login') {
         console.log('Login the user')
       }
       else {
-        console.log('Register the user')
+        this.registerUser(this.formData)
       }
     }
   }
