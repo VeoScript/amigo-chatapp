@@ -1,11 +1,13 @@
 import { firebaseAuth, firebaseDb } from 'boot/firebase'
 
 const state = {
-
+  userDetails: {}
 }
 
 const mutations = {
-  
+  setUserDetails(state, payload) {
+    state.userDetails = payload
+  }
 }
 
 const actions = {
@@ -33,19 +35,23 @@ const actions = {
       console.log(error.message)
     })
   },
-  handleAuthStateChanged() {
+  handleAuthStateChanged({ commit }) {
     firebaseAuth.onAuthStateChanged(user => {
       if (user) {
         // User is logged in.
         let userId = firebaseAuth.currentUser.uid
         firebaseDb.ref("users/" + userId).once('value', snapshot => {
-          console.log('snapshot: ', snapshot)
           let userDetails = snapshot.val()
-          console.log('userDetails: ', userDetails)
+          commit('setUserDetails', {
+            name: userDetails.name,
+            email: userDetails.email,
+            userId: userId
+          })
         })
       }
       else {
         //User is logged out.
+        
       }
     });
   }
