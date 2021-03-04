@@ -6,7 +6,7 @@
       <q-item
         v-for="(user, key) in users"
         :key="key"
-        to="/chat"
+        :to="'/chat/' + key"
         clickable
         v-ripple>
 
