@@ -2,15 +2,18 @@
   <q-form>
     <q-input
       v-model="formData.name"
+      class="q-mb-md"
       outlined
       label="Name" />
     <q-input
       v-model="formData.email"
+      class="q-mb-md"
       outlined
       type="email"
       label="Email" />
     <q-input
       v-model="formData.password"
+      class="q-mb-md"
       outlined
       type="password"
       label="Password" />
