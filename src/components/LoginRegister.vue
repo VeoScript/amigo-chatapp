@@ -1,6 +1,7 @@
 <template>
   <q-form>
     <q-input
+      v-if="tab === 'register'"
       v-model="formData.name"
       class="q-mb-md"
       outlined
