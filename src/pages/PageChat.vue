@@ -7,8 +7,8 @@
     </q-banner>
     <div class="q-pa-md column col">
       <q-chat-message
-        v-for="message in messages"
-        :key="message.text"
+        v-for="(message, key) in messages"
+        :key="key"
         :name="message.from === 'me' ? userDetails.name : otherUserDetails.name"
         :text="[message.text]"
         :sent="message.from === 'me' ? true : false"
@@ -58,11 +58,14 @@ export default {
     ...mapState('store', ['messages', 'userDetails']),
   },
   methods: {
-    ...mapActions('store', ['firebaseGetMessages', 'firebaseStopGettingMessages']),
+    ...mapActions('store', ['firebaseGetMessages', 'firebaseStopGettingMessages', 'firebaseSendMessage']),
     sendMessage() {
-      this.messages.push({
-        text: this.newMessage,
-        from: 'me'
+      this.firebaseSendMessage({
+        message: {
+          text: this.newMessage,
+          from: 'me'
+        },
+        otherUserId: this.$route.params.otherUserId
       })
     }
   },
