@@ -130,6 +130,9 @@ const actions = {
       messagesRef.off('child_added')
       commit('clearMessages')
     }
+  },
+  firebaseSendMessage({}, payload) {
+    console.log('payload: ', payload)
   }
 }
 
