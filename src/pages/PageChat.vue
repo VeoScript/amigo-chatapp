@@ -67,6 +67,16 @@ export default {
         },
         otherUserId: this.$route.params.otherUserId
       })
+    },
+    scrollToBottom() {
+      
+    }
+  },
+  watch: {
+    messages: function(val) {
+      if (Object.keys(val).length) {
+        this.scrollToBottom()
+      }
     }
   },
   mounted() {
