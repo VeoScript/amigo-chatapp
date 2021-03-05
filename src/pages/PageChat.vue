@@ -5,7 +5,7 @@
       class="bg-grey-4 text-center">
       {{ otherUserDetails.name }} is offline.
     </q-banner>
-    <div class="q-pa-md column col">
+    <div class="q-pa-md column col justify-end">
       <q-chat-message
         v-for="(message, key) in messages"
         :key="key"
