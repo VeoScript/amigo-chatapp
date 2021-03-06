@@ -1,11 +1,15 @@
 <template>
-  <q-page class="flex column justify-end">
+  <q-page
+    ref="pageChat"
+    class="page-chat flex column justify-end">
     <q-banner
       v-if="!otherUserDetails.online"
       class="bg-grey-4 text-center">
       {{ otherUserDetails.name }} is offline.
     </q-banner>
-    <div class="q-pa-md column col justify-end">
+    <div
+      :class="{ 'invisible' : !showMessages }"
+      class="q-pa-md column col justify-end">
       <q-chat-message
         v-for="(message, key) in messages"
         :key="key"
@@ -21,6 +25,7 @@
           class="full-width">
           <q-input
             v-model="newMessage"
+            ref="newMessage"
             bg-color="white"
             class="full-width"
             outlined
@@ -51,7 +56,8 @@ export default {
   mixins: [mixinOtherUserDetails],
   data() {
     return {
-      newMessage: ''
+      newMessage: '',
+      showMessages: false
     }
   },
   computed: {
@@ -67,15 +73,26 @@ export default {
         },
         otherUserId: this.$route.params.otherUserId
       })
+      this.clearMessage()
+    },
+    clearMessage() {
+      this.newMessage = ''
+      this.$refs.newMessage.focus()
     },
     scrollToBottom() {
-      
+      let pageChat = this.$refs.pageChat.$el
+      setTimeout(() => {
+        window.scrollTo(0, pageChat.scrollHeight)
+      }, 20);
     }
   },
   watch: {
     messages: function(val) {
       if (Object.keys(val).length) {
         this.scrollToBottom()
+        setTimeout(() => {
+          this.showMessages = true
+        }, 200);
       }
     }
   },
@@ -87,3 +104,15 @@ export default {
   }
 }
 </script>
+
+<style>
+  .page-chat {
+    background-color: #43423f;
+    background-image:
+    repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+    linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
+    linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
+    background-size: 70px 120px;
+  }
+</style>
