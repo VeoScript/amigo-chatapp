@@ -16,6 +16,8 @@
         :name="message.from === 'me' ? userDetails.name : otherUserDetails.name"
         :text="[message.text]"
         :sent="message.from === 'me' ? true : false"
+        :bg-color="message.from === 'me' ? 'white' : 'grey-10'"
+        :text-color="message.from === 'me' ? 'grey-10' : 'grey-2'"
       />
     </div>
     <q-footer elevated>
@@ -30,7 +32,7 @@
             class="full-width"
             outlined
             rounded
-            label="Message..."
+            label="Write your message here..."
             dense>
 
             <template v-slot:after>
