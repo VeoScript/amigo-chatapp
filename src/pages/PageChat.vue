@@ -4,7 +4,7 @@
     class="page-chat flex column justify-end">
     <q-banner
       v-if="!otherUserDetails.online"
-      class="bg-grey-4 text-center">
+      class="bg-red-7 text-white text-center fixed-top">
       {{ otherUserDetails.name }} is offline.
     </q-banner>
     <div
@@ -116,5 +116,15 @@ export default {
     linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
     linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
     background-size: 70px 120px;
+  }
+
+  .q-banner {
+    top: 50px;
+    z-index: 2;
+    opacity: 0.8;
+  }
+
+  .q-message {
+    z-index: 1;
   }
 </style>
